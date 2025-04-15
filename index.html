@@ -1,1 +1,774 @@
-you're an idiot :)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Ancryptic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" async>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        body {
+            min-height: 200vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0e0e0e 100%);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%);
+            animation: backgroundShift 15s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes backgroundShift {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.2) rotate(5deg); opacity: 0.7; }
+            100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+        }
+
+        /* Combined common card styles */
+        .topbar, .plan-card {
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card {
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            border: 1px solid #424244;
+            transition: all 0.4s ease;
+        }
+
+        .credit-card {
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            border: 1px solid #424244;
+            transition: all 0.4s ease;
+        }
+
+        .topbar {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 15px 40px;
+            z-index: 100;
+            width: 100%;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px 20px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.2s ease-out 0.3s backwards;
+        }
+
+        h1, h2 {
+            background: linear-gradient(135deg, #fff 0%, #a0a0a0 50%, #606060 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        h1 { font-size: 62px; margin-bottom: 15px; }
+        h2 { font-size: 52px; margin-bottom: 15px; }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.3)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255,255,255,0.4)); }
+        }
+        
+
+        p {
+            font-size: 15px;
+            color: #ccc;
+            font-weight: 400;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1.2s ease-out 0.6s backwards;
+        }
+
+        .download-btn {
+            padding: 12px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #404040, #202020);
+            text-decoration: none;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before { left: 100%; }
+        .download-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        @keyframes mainButtonPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 30px rgba(255,255,255,0.1); }
+        }
+
+        .plans, .features, .credits {
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .plan-card {
+            width: 280px;
+            padding: 25px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .feature-card {
+            width: 100%;
+            padding: 25px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #c0c0c0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card h2, .plan-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #a4a4a4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 15px 35px rgba(17, 17, 17, 0.3);
+            transform: scale(1.03);
+        }
+
+        .plan-card:hover h2 { transform: scale(1.1); }
+
+        .feature-card p, .credit-info p {
+            font-size: 16px;
+            color: #a0a0a0;
+            margin: 0;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover p { color: #ccc; }
+
+        @media (max-width: 600px) {
+            .features-grid { grid-template-columns: 1fr; max-width: 300px; gap: 20px; }
+            .topbar { top: 10px; padding: 10px 15px; gap: 15px; width: 405px; flex-wrap: wrap; }
+            .nav-link { font-size: 14px; padding: 5px; }
+            h1 { font-size: 42px; }
+            p { font-size: 16px; }
+            .download-btn { padding: 14px 30px; font-size: 16px; }
+            .plan-card, .credit-card { width: 100%; max-width: 300px; }
+            .divider { width: 80%; }
+            .credit-card { flex-direction: column; text-align: center; padding: 20px; }
+            .credit-card img { margin: 0 0 15px 0; }
+            .credit-info { text-align: center; }
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            transform: rotate(0deg);
+            transition: transform 0.6s ease;
+            pointer-events: none;
+            animation: cardGlow 8s ease-in-out infinite alternate;
+        }
+
+        .plan-card:hover::before { transform: rotate(180deg); }
+        .plan-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.3); }
+
+        .plan-card .price { font-size: 22px; color: #b0b0b0; margin-bottom: 20px; font-weight: 500; }
+        .plan-card ul { list-style: none; font-size: 16px; color: #b0b0b0; text-align: left; padding: 0 15px; margin-bottom: 25px; }
+        .plan-card ul li { margin-bottom: 10px; position: relative; }
+        .plan-card ul li::before { content: '›'; color: #fff; margin-right: 8px; display: inline-block; transition: transform 0.3s ease; }
+        .plan-card:hover ul li::before { animation: iconPulse 1s infinite; }
+
+        @keyframes iconPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .plan-button {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .plan-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .plan-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.5);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s ease;
+        }
+
+        .plan-button:hover::before { left: 100%; }
+        .plan-button:hover::after { transform: scaleX(1); transform-origin: left; }
+
+        .free-button { background: linear-gradient(135deg, #505050, #303030); color: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .premium-button { background: linear-gradient(135deg, #404040, #202020); color: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
+        .free-button:hover, .premium-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 30px rgba(255,255,255,0.1), inset 0 0 20px rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            animation: monoButtonGlow 2s infinite;
+        }
+
+        @keyframes monoButtonGlow {
+            0% { box-shadow: 0 0 15px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1); }
+            50% { box-shadow: 0 0 30px rgba(255,255,255,0.1), inset 0 0 20px rgba(255,255,255,0.1); }
+            100% { box-shadow: 0 0 15px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1); }
+        }
+
+        .credit-card {
+            width: 350px;
+            padding: 25px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        .credit-card img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-right: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .credit-info h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .credit-info p { opacity: 0.8; }
+
+        .footer {
+            width: 100%;
+            padding: 80px 20px 40px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.02));
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #a0a0a0;
+            text-align: center;
+            z-index: 1;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: start;
+            gap: 60px;
+        }
+
+        .footer-logo { text-align: left; }
+        .footer-logo h2 { font-size: 32px; letter-spacing: 1px; }
+        .footer-logo p { font-size: 14px; color: #808080; line-height: 1.6; margin: 0; }
+
+        .footer-links { display: flex; flex-direction: column; gap: 15px; text-align: center; }
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .footer-link:hover {
+            color: #fff;
+            transform: translateX(3px);
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .footer-social { display: flex; justify-content: flex-end; gap: 20px; }
+        .social-icon {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.03);
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .social-icon:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.114);
+        }
+
+        .footer-bottom { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-bottom p { font-size: 13px; color: #666; margin: 0; }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-logo, .footer-links, .footer-social { text-align: center; justify-content: center; }
+            .footer-social { flex-wrap: wrap; }
+            .social-icon { min-width: 140px; }
+        }
+
+        .maintenance-msg {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 200;
+            transition: opacity 0.3s ease;
+        }
+
+        .maintenance-msg.active { opacity: 1; pointer-events: auto; }
+        .msg-content {
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeSlideIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .divider {
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.15), rgba(255,255,255,0));
+            margin: 40px auto;
+            border-radius: 1px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; height: 50px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .snowflake, .particle {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .snowflake {
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { opacity: 0.8; transform: translateY(-100vh); }
+            100% { opacity: 0.2; transform: translateY(100vh); }
+        }
+
+        .particle {
+            width: 3px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(-50px); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;" onkeydown="if(event.ctrlKey && (event.key === 'c' || event.key === 'u' || event.key === 's')) return false;">
+    <div class="content" id="home">
+        <h1>Ancryptic</h1>
+        <p>Roblox's #1 executor at the moment! It uses the internal injection method! This software is always updated when Roblox patches it!
+        </p>
+        <a href="#download" class="download-btn">
+            download
+        </a>
+    </div>
+    <div class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 16 16"><path fill="#e7e7e7" d="M9.905 2.815a.75.75 0 0 1 .38.99l-4 9a.75.75 0 1 1-1.37-.61l4-9a.75.75 0 0 1 .99-.38M4.498 5.19a.75.75 0 0 1 .063 1.058L3.003 8l1.558 1.752a.75.75 0 1 1-1.122.996l-2-2.25a.75.75 0 0 1 0-.996l2-2.25A.75.75 0 0 1 4.5 5.19m7.004 0a.75.75 0 0 1 1.059.062l2 2.25a.75.75 0 0 1 0 .996l-2 2.25a.75.75 0 0 1-1.122-.996L12.996 8L11.44 6.248a.75.75 0 0 1 .063-1.058"/></svg>
+                </div>
+                <h2>Script Execution</h2>
+                <p>Execution literally takes 0ms and that's really strong for the executor.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 16 16"><path fill="#e7e7e7" d="M5 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M7.5 15a6 6 0 1 0 0-12a6 6 0 0 0 0 12m0-10a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 .5-.5m4.953-2.358a.5.5 0 1 0-.707.707l1.403 1.403a.5.5 0 1 0 .707-.707z"/></svg>
+                </div>
+                <h2>Executor Updates</h2>
+                <p>Get instant updates to stay ahead of Roblox patches.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 32 32"><path fill="#e7e7e7" d="M17 7V2H7a1 1 0 0 0-1 1v11h20V3a1 1 0 0 0-1-1h-2v7a1 1 0 1 1-2 0V2h-2v5a1 1 0 1 1-2 0m9 9H6v2.75A3.25 3.25 0 0 0 9.25 22H13v5a3 3 0 1 0 6 0v-5h3.75A3.25 3.25 0 0 0 26 18.75z"/></svg>
+                </div>
+                <h2>User Friendly UI</h2>
+                <p>Intuitive interface designed for all skill levels.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24"><path fill="#e7e7e7" d="M13.057 7.43a2.5 2.5 0 1 1 3.536 3.536a2.5 2.5 0 0 1-3.536-3.535m2.475 1.061a1 1 0 1 0-1.414 1.415a1 1 0 0 0 1.414-1.415m4.166-5.98a2.75 2.75 0 0 1 1.81 1.811l.207.664a6.75 6.75 0 0 1-1.673 6.777l-.998.998a3.5 3.5 0 0 1-.328 4.567l-1.242 1.243a.75.75 0 0 1-1.06 0l-1.59-1.59l-.177.177a1.75 1.75 0 0 1-2.475 0l-.487-.487l-.811 1.39a.75.75 0 0 1-1.178.153l-3.89-3.89a.75.75 0 0 1 .146-1.173l1.384-.829l-.47-.47a1.75 1.75 0 0 1 0-2.476l.18-.18l-1.592-1.59a.75.75 0 0 1 0-1.06l1.243-1.243a3.5 3.5 0 0 1 4.569-.327l.996-.996a6.75 6.75 0 0 1 6.773-1.674zm.378 2.256a1.25 1.25 0 0 0-.823-.823l-.662-.205a5.25 5.25 0 0 0-5.269 1.302l-5.396 5.396a.25.25 0 0 0 0 .354l5.307 5.306a.25.25 0 0 0 .353 0l5.396-5.395a5.25 5.25 0 0 0 1.3-5.27zM6.69 18.394a.75.75 0 0 0-1.06-1.06l-2.476 2.474a.75.75 0 0 0 1.061 1.061zM4.745 15.39a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 0 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0m3.887 4.952a.75.75 0 1 0-1.06-1.06L6.513 20.34a.75.75 0 0 0 1.06 1.06z"/></svg>
+                </div>
+                <h2>High Performance</h2>
+                <p>Executor very optimized for speed and reliability.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="credits" id="credits">
+        <div class="credit-card">
+            <img src="pneumxnia.png" alt="danlacho Avatar" loading="lazy">
+            <div class="credit-info">
+                <h3>pneumxnia</h3>
+                <p>Owner | UI Developer</p>
+            </div>
+        </div>
+        <div class="credit-card">
+            <img src="dcooke.jpeg" alt="Acevincente Avatar" loading="lazy">
+            <div class="credit-info">
+                <h3>Dcooke0727</h3>
+                <p>API Developer</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Ancryptic</h2>
+                <p>The time has come to take away the Synapse X, but here we come, creating a new era of a new best executor in the world called Ancryptic!</p>
+            </div>
+            <div class="footer-social">
+                <a href="https://dsc.gg/ancryptic" class="social-icon">Discord</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Ancryptic. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const throttle = (func, limit) => {
+            let inThrottle;
+            return (...args) => {
+                if (!inThrottle) {
+                    func(...args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        };
+
+        // Anti-copy protection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's')) e.preventDefault();
+        });
+        document.addEventListener('mousedown', e => { if (e.detail > 1) e.preventDefault(); });
+
+        // Navigation
+        const navLinks = {
+            'home-link': 'home',
+            'plans-link': 'plans',
+            'features-link': 'features',
+            'credits-link': 'credits'
+        };
+        Object.entries(navLinks).forEach(([id, target]) => {
+            document.getElementById(id).addEventListener('click', e => {
+                e.preventDefault();
+                document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+
+
+        // Maintenance message
+        const isDownloadAllowed = false;
+        const maintenanceMsg = document.getElementById('maintenance-msg');
+        const showMaintenance = () => {
+            maintenanceMsg.classList.add('active');
+            setTimeout(() => maintenanceMsg.classList.remove('active'), 2000);
+        };
+        document.querySelector('.download-btn').addEventListener('click', e => {
+            e.preventDefault();
+            isDownloadAllowed ? window.location.href = 'https://github.com/danlachow/z/raw/refs/heads/main/Ancryptic.rar' : showMaintenance();
+        });
+
+        // Tilt effect for cards
+        const applyTilt = (cards) => cards.forEach(card => {
+            const tiltCard = throttle(e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            }, 16);
+            card.addEventListener('mousemove', tiltCard);
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+        applyTilt(document.querySelectorAll('.plan-card'));
+        applyTilt(document.querySelectorAll('.feature-card'));
+        applyTilt(document.querySelectorAll('.credit-card'));
+
+        // Optimized particles and snowflakes
+        const createElement = (className, styles, parent, innerHTML) => {
+            const el = document.createElement('div');
+            el.className = className;
+            Object.assign(el.style, styles);
+            if (innerHTML) el.innerHTML = innerHTML;
+            parent.appendChild(el);
+            return el;
+        };
+
+        let snowflakeCount = 0;
+        const maxSnowflakes = 20;
+        const createSnowflake = () => {
+            if (snowflakeCount >= maxSnowflakes) return;
+            const snowflake = createElement('snowflake', {
+                left: `${Math.random() * 100}vw`,
+                animationDuration: `${Math.random() * 5 + 5}s`,
+                opacity: Math.random() * 0.5 + 0.5
+            }, document.body, '❄');
+            snowflakeCount++;
+            setTimeout(() => { snowflake.remove(); snowflakeCount--; }, 12000);
+        };
+
+        const createParticle = () => {
+            const particle = createElement('particle', {
+                left: `${Math.random() * 100}vw`,
+                animationDuration: `${Math.random() * 10 + 15}s`
+            }, document.body);
+            setTimeout(() => particle.remove(), 25000);
+        };
+
+        let lastFrame = 0;
+        const throttledSnow = timestamp => {
+            if (timestamp - lastFrame >= 500) {
+                createSnowflake();
+                lastFrame = timestamp;
+            }
+            requestAnimationFrame(throttledSnow);
+        };
+        requestAnimationFrame(throttledSnow);
+
+        setInterval(createParticle, 2000);
+        for (let i = 0; i < 5; i++) createParticle();
+
+        // Footer particles
+        const createFooterParticle = () => {
+            const particle = createElement('footer-particle', {
+                position: 'absolute',
+                width: '4px',
+                height: '4px',
+                background: 'rgba(255,255,255,0.2)',
+                borderRadius: '50%',
+                left: `${Math.random() * 100}%`,
+                bottom: '0',
+                animation: `footerParticleRise ${Math.random() * 3 + 2}s ease-out forwards`
+            }, document.querySelector('.footer'));
+            setTimeout(() => particle.remove(), 5000);
+        };
+        document.head.insertAdjacentHTML('beforeend', `<style>@keyframes footerParticleRise{0%{opacity:0.5;transform:translateY(0);}100%{opacity:0;transform:translateY(-100px);}}</style>`);
+        setInterval(createFooterParticle, 1000);
+        for (let i = 0; i < 5; i++) setTimeout(createFooterParticle, i * 200);
+    </script>
+</body>
+</html>
