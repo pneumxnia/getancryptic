@@ -681,13 +681,9 @@
             });
         });
 
-
-
-        // Maintenance message
-        const isDownloadAllowed = true;
         document.querySelector('#dnld').addEventListener('click', e => {
             e.preventDefault();
-            isDownloadAllowed ? window.location.href = 'https://github.com/pneumxnia/static-files/raw/refs/heads/mainbranch/Bootstrapper.exe' : showMaintenance();
+            window.location.href = 'https://github.com/pneumxnia/static-files/raw/refs/heads/mainbranch/Bootstrapper.exe';
         });
 
         // Tilt effect for cards
